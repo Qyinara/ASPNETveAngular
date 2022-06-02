@@ -38,7 +38,7 @@ Kullanıcı Profil Sayfası
 
 ## İnstallation
 Aşağıdaki linki clone yaparak bilgisayarınızda kodları inceleyebilir,çalıştırabilirsiniz.
-https://github.com/Qyinara/Technosoru-internet-programciligi-II-vize
+https://github.com/Qyinara/ASPNETveAngular
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)

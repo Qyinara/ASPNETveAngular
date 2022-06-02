@@ -1,0 +1,2 @@
+# ASPNETveAngular
+sorucevap portalı final

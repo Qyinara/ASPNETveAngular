@@ -1,0 +1,59 @@
+<div class="container">
+  <h2>Kategoriler</h2>
+  <button mat-fab matTooltip="Kategori Ekle" color="primary" (click)="Ekle()">
+    <mat-icon aria-label="label">add</mat-icon>
+  </button>
+  <p>&nbsp;</p>
+
+  <mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+<ng-container matColumnDef="KategoriId">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Kategori ID
+      </mat-header-cell>
+      <mat-cell *matCellDef="let kayit"> {{kayit.KategoriId}} </mat-cell>
+    </ng-container>
+
+  <ng-container matColumnDef="KatSoruSay">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Soru Sayısı
+    </mat-header-cell>
+    <mat-cell *matCellDef="let kayit"> {{kayit.KatSoruSay}} </mat-cell>
+  </ng-container>
+    
+
+    <ng-container matColumnDef="KategoriAdi">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Kategori Adı
+      </mat-header-cell>
+      <mat-cell *matCellDef="let kayit"> {{kayit.KategoriAdi}} </mat-cell>
+    </ng-container>
+  
+ 
+
+
+    <ng-container matColumnDef="detay">
+      <mat-header-cell *matHeaderCellDef> İşlemler
+      </mat-header-cell>
+      <mat-cell *matCellDef="let kayit">
+      
+        <button mat-icon-button color="primary" matTooltip="Soru Liste" [routerLink]="['/admin/sorular', kayit.KategoriId]">
+          <mat-icon aria-label="label">list</mat-icon>
+        </button>
+
+
+        <button mat-icon-button color="primary" matTooltip="Kategori Düzenle" (click)="Duzenle(kayit)">
+          <mat-icon aria-label="label">edit</mat-icon>
+        </button>
+
+
+        <button mat-icon-button color="warn" matTooltip="Kategori Sil" (click)="Sil(kayit)">
+          <mat-icon aria-label="label">delete</mat-icon>
+        </button>
+      
+      </mat-cell>
+    </ng-container>
+
+  
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons>
+  </mat-paginator>
+</div>

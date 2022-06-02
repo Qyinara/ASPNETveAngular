@@ -1,0 +1,42 @@
+<mat-toolbar color="primary" class="mat-elevation-z8">
+  <span>{{dialogBaslik}}</span>
+</mat-toolbar>
+<div class="container" *ngIf="islem !='detay'">
+<form [formGroup]="frm">
+<mat-form-field appearance="outline">
+  <mat-label>Kategori Adı</mat-label>
+  <mat-select placeholder="Kategori Seçiniz" formControlName="KategoriId" required>
+    <mat-option [value]="kat.KategoriId" *ngFor="let kat of kategoriler">{{kat.KategoriAdi}}</mat-option>
+  </mat-select>
+</mat-form-field>
+
+<mat-form-field appearance="outline" style="width: 100%;">
+  <mat-label>Soru Başlığı</mat-label>
+  <input matInput placeholder="Soru Başlığı" formControlName="SoruBaslik" required>
+</mat-form-field>
+
+<jodit-editor [config]="Jconfig" formControlName="SoruIcerik">
+
+
+</jodit-editor>
+
+
+</form>
+<button mat-raised-button color="primary" (click)="dialogRef.close(frm.value)" [disabled]="frm.invalid">Kaydet</button>&nbsp;
+<button mat-raised-button color="warn" (click)="dialogRef.close()">İptal</button>
+</div>
+
+
+<div class="container" *ngIf="islem =='detay'">
+
+<h1 style="text-align: center;">Soru Başlığı</h1>
+<h2>{{yeniKayit.SoruBaslik}}</h2>
+<hr>
+
+<h1 style="text-align: center;">Soru İçeriği</h1>
+<div [innerHTML]="yeniKayit.SoruIcerik | safeHtml"></div>
+
+<button mat-raised-button color="warn" (click)="dialogRef.close()">Kapat</button>
+
+</div>
+

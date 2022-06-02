@@ -1,0 +1,311 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DB07Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Kategoriler">
+          <Key>
+            <PropertyRef Name="KategoriId" />
+          </Key>
+          <Property Name="KategoriId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KategoriAdi" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sorular">
+          <Key>
+            <PropertyRef Name="SoruId" />
+          </Key>
+          <Property Name="SoruId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SoruBaslik" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SoruIcerik" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SoruTarih" Type="datetime" Nullable="false" />
+          <Property Name="KategoriId" Type="int" Nullable="false" />
+          <Property Name="UyeId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Uyeler">
+          <Key>
+            <PropertyRef Name="UyeId" />
+          </Key>
+          <Property Name="UyeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KullaniciAdi" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UyeMail" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UyeTarih" Type="datetime" Nullable="false" />
+          <Property Name="UyeYetki" Type="int" Nullable="false" />
+          <Property Name="UyeParola" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Yanitlar">
+          <Key>
+            <PropertyRef Name="YanitId" />
+          </Key>
+          <Property Name="YanitId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="YanitIcerik" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="YanitTarih" Type="datetime" Nullable="false" />
+          <Property Name="UyeId" Type="int" Nullable="false" />
+          <Property Name="SoruId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Sorular_ToKategoriler">
+          <End Role="Kategoriler" Type="Self.Kategoriler" Multiplicity="1" />
+          <End Role="Sorular" Type="Self.Sorular" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kategoriler">
+              <PropertyRef Name="KategoriId" />
+            </Principal>
+            <Dependent Role="Sorular">
+              <PropertyRef Name="KategoriId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sorular_ToUyeler">
+          <End Role="Uyeler" Type="Self.Uyeler" Multiplicity="1" />
+          <End Role="Sorular" Type="Self.Sorular" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Uyeler">
+              <PropertyRef Name="UyeId" />
+            </Principal>
+            <Dependent Role="Sorular">
+              <PropertyRef Name="UyeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Yanitlar_ToSorular">
+          <End Role="Sorular" Type="Self.Sorular" Multiplicity="1" />
+          <End Role="Yanitlar" Type="Self.Yanitlar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sorular">
+              <PropertyRef Name="SoruId" />
+            </Principal>
+            <Dependent Role="Yanitlar">
+              <PropertyRef Name="SoruId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Yanitlar_ToUyeler">
+          <End Role="Uyeler" Type="Self.Uyeler" Multiplicity="1" />
+          <End Role="Yanitlar" Type="Self.Yanitlar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Uyeler">
+              <PropertyRef Name="UyeId" />
+            </Principal>
+            <Dependent Role="Yanitlar">
+              <PropertyRef Name="UyeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DB07ModelStoreContainer">
+          <EntitySet Name="Kategoriler" EntityType="Self.Kategoriler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sorular" EntityType="Self.Sorular" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Uyeler" EntityType="Self.Uyeler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Yanitlar" EntityType="Self.Yanitlar" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Sorular_ToKategoriler" Association="Self.FK_Sorular_ToKategoriler">
+            <End Role="Kategoriler" EntitySet="Kategoriler" />
+            <End Role="Sorular" EntitySet="Sorular" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sorular_ToUyeler" Association="Self.FK_Sorular_ToUyeler">
+            <End Role="Uyeler" EntitySet="Uyeler" />
+            <End Role="Sorular" EntitySet="Sorular" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Yanitlar_ToSorular" Association="Self.FK_Yanitlar_ToSorular">
+            <End Role="Sorular" EntitySet="Sorular" />
+            <End Role="Yanitlar" EntitySet="Yanitlar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Yanitlar_ToUyeler" Association="Self.FK_Yanitlar_ToUyeler">
+            <End Role="Uyeler" EntitySet="Uyeler" />
+            <End Role="Yanitlar" EntitySet="Yanitlar" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DB07Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Kategoriler">
+          <Key>
+            <PropertyRef Name="KategoriId" />
+          </Key>
+          <Property Name="KategoriId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KategoriAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Sorular" Relationship="Self.FK_Sorular_ToKategoriler" FromRole="Kategoriler" ToRole="Sorular" />
+        </EntityType>
+        <EntityType Name="Sorular">
+          <Key>
+            <PropertyRef Name="SoruId" />
+          </Key>
+          <Property Name="SoruId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SoruBaslik" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SoruIcerik" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SoruTarih" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="KategoriId" Type="Int32" Nullable="false" />
+          <Property Name="UyeId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Kategoriler" Relationship="Self.FK_Sorular_ToKategoriler" FromRole="Sorular" ToRole="Kategoriler" />
+          <NavigationProperty Name="Uyeler" Relationship="Self.FK_Sorular_ToUyeler" FromRole="Sorular" ToRole="Uyeler" />
+          <NavigationProperty Name="Yanitlar" Relationship="Self.FK_Yanitlar_ToSorular" FromRole="Sorular" ToRole="Yanitlar" />
+        </EntityType>
+        <EntityType Name="Uyeler">
+          <Key>
+            <PropertyRef Name="UyeId" />
+          </Key>
+          <Property Name="UyeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KullaniciAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UyeMail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UyeTarih" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UyeYetki" Type="Int32" Nullable="false" />
+          <Property Name="UyeParola" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Sorular" Relationship="Self.FK_Sorular_ToUyeler" FromRole="Uyeler" ToRole="Sorular" />
+          <NavigationProperty Name="Yanitlar" Relationship="Self.FK_Yanitlar_ToUyeler" FromRole="Uyeler" ToRole="Yanitlar" />
+        </EntityType>
+        <EntityType Name="Yanitlar">
+          <Key>
+            <PropertyRef Name="YanitId" />
+          </Key>
+          <Property Name="YanitId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="YanitIcerik" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="YanitTarih" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UyeId" Type="Int32" Nullable="false" />
+          <Property Name="SoruId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Sorular" Relationship="Self.FK_Yanitlar_ToSorular" FromRole="Yanitlar" ToRole="Sorular" />
+          <NavigationProperty Name="Uyeler" Relationship="Self.FK_Yanitlar_ToUyeler" FromRole="Yanitlar" ToRole="Uyeler" />
+        </EntityType>
+        <Association Name="FK_Sorular_ToKategoriler">
+          <End Role="Kategoriler" Type="Self.Kategoriler" Multiplicity="1" />
+          <End Role="Sorular" Type="Self.Sorular" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kategoriler">
+              <PropertyRef Name="KategoriId" />
+            </Principal>
+            <Dependent Role="Sorular">
+              <PropertyRef Name="KategoriId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sorular_ToUyeler">
+          <End Role="Uyeler" Type="Self.Uyeler" Multiplicity="1" />
+          <End Role="Sorular" Type="Self.Sorular" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Uyeler">
+              <PropertyRef Name="UyeId" />
+            </Principal>
+            <Dependent Role="Sorular">
+              <PropertyRef Name="UyeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Yanitlar_ToSorular">
+          <End Role="Sorular" Type="Self.Sorular" Multiplicity="1" />
+          <End Role="Yanitlar" Type="Self.Yanitlar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sorular">
+              <PropertyRef Name="SoruId" />
+            </Principal>
+            <Dependent Role="Yanitlar">
+              <PropertyRef Name="SoruId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Yanitlar_ToUyeler">
+          <End Role="Uyeler" Type="Self.Uyeler" Multiplicity="1" />
+          <End Role="Yanitlar" Type="Self.Yanitlar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Uyeler">
+              <PropertyRef Name="UyeId" />
+            </Principal>
+            <Dependent Role="Yanitlar">
+              <PropertyRef Name="UyeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DB07Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Kategoriler" EntityType="Self.Kategoriler" />
+          <EntitySet Name="Sorular" EntityType="Self.Sorular" />
+          <EntitySet Name="Uyeler" EntityType="Self.Uyeler" />
+          <EntitySet Name="Yanitlar" EntityType="Self.Yanitlar" />
+          <AssociationSet Name="FK_Sorular_ToKategoriler" Association="Self.FK_Sorular_ToKategoriler">
+            <End Role="Kategoriler" EntitySet="Kategoriler" />
+            <End Role="Sorular" EntitySet="Sorular" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sorular_ToUyeler" Association="Self.FK_Sorular_ToUyeler">
+            <End Role="Uyeler" EntitySet="Uyeler" />
+            <End Role="Sorular" EntitySet="Sorular" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Yanitlar_ToSorular" Association="Self.FK_Yanitlar_ToSorular">
+            <End Role="Sorular" EntitySet="Sorular" />
+            <End Role="Yanitlar" EntitySet="Yanitlar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Yanitlar_ToUyeler" Association="Self.FK_Yanitlar_ToUyeler">
+            <End Role="Uyeler" EntitySet="Uyeler" />
+            <End Role="Yanitlar" EntitySet="Yanitlar" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DB07ModelStoreContainer" CdmEntityContainer="DB07Entities">
+          <EntitySetMapping Name="Kategoriler">
+            <EntityTypeMapping TypeName="DB07Model.Kategoriler">
+              <MappingFragment StoreEntitySet="Kategoriler">
+                <ScalarProperty Name="KategoriId" ColumnName="KategoriId" />
+                <ScalarProperty Name="KategoriAdi" ColumnName="KategoriAdi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sorular">
+            <EntityTypeMapping TypeName="DB07Model.Sorular">
+              <MappingFragment StoreEntitySet="Sorular">
+                <ScalarProperty Name="SoruId" ColumnName="SoruId" />
+                <ScalarProperty Name="SoruBaslik" ColumnName="SoruBaslik" />
+                <ScalarProperty Name="SoruIcerik" ColumnName="SoruIcerik" />
+                <ScalarProperty Name="SoruTarih" ColumnName="SoruTarih" />
+                <ScalarProperty Name="KategoriId" ColumnName="KategoriId" />
+                <ScalarProperty Name="UyeId" ColumnName="UyeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Uyeler">
+            <EntityTypeMapping TypeName="DB07Model.Uyeler">
+              <MappingFragment StoreEntitySet="Uyeler">
+                <ScalarProperty Name="UyeId" ColumnName="UyeId" />
+                <ScalarProperty Name="KullaniciAdi" ColumnName="KullaniciAdi" />
+                <ScalarProperty Name="UyeMail" ColumnName="UyeMail" />
+                <ScalarProperty Name="UyeTarih" ColumnName="UyeTarih" />
+                <ScalarProperty Name="UyeYetki" ColumnName="UyeYetki" />
+                <ScalarProperty Name="UyeParola" ColumnName="UyeParola" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Yanitlar">
+            <EntityTypeMapping TypeName="DB07Model.Yanitlar">
+              <MappingFragment StoreEntitySet="Yanitlar">
+                <ScalarProperty Name="YanitId" ColumnName="YanitId" />
+                <ScalarProperty Name="YanitIcerik" ColumnName="YanitIcerik" />
+                <ScalarProperty Name="YanitTarih" ColumnName="YanitTarih" />
+                <ScalarProperty Name="UyeId" ColumnName="UyeId" />
+                <ScalarProperty Name="SoruId" ColumnName="SoruId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

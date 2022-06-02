@@ -1,0 +1,75 @@
+<div class="container">
+    <h2>Üyeler</h2>
+    <button mat-fab aria-label="label" matTooltip="Uye  Ekle" color="primary" (click)="Ekle()">
+      <mat-icon aria-label>add</mat-icon>
+    </button>
+    <p>&nbsp;</p>
+    <mat-form-field>
+      <input matInput placeholder="Üye Arama" (keyup)="Filtrele($event)">
+    </mat-form-field>
+  
+    <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+  
+  
+      <ng-container matColumnDef="UyeId">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Kullanıcı ID
+        </mat-header-cell>
+        <mat-cell *matCellDef="let uyeler"> {{uyeler.UyeId}} </mat-cell>
+      </ng-container>
+  
+  
+      <ng-container matColumnDef="KullaniciAdi">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Kullanıcı Adı
+        </mat-header-cell>
+        <mat-cell *matCellDef="let uyeler"> {{uyeler.KullaniciAdi}} </mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="UyeTarih">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Kullanıcı Tarihi
+        </mat-header-cell>
+        <mat-cell *matCellDef="let uyeler"> {{uyeler.UyeTarih | date: 'dd.MM.yyyy HH:mm:ss'}} </mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="UyeMail">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Kullanıcı Eposta
+        </mat-header-cell>
+        <mat-cell *matCellDef="let uyeler"> {{uyeler.UyeMail}} </mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="UyeParola">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Kullanıcı Parola
+        </mat-header-cell>
+        <mat-cell *matCellDef="let uyeler"> {{uyeler.UyeParola}} </mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="UyeYetki">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Kullanıcı Yetki
+        </mat-header-cell>
+        <mat-cell *matCellDef="let uyeler" > <span  *ngIf="uyeler.UyeYetki == 1">Admin</span> <span  *ngIf="uyeler.UyeYetki == 0">Üye</span> </mat-cell>
+        
+      </ng-container>
+  
+      <ng-container matColumnDef="detay">
+        <mat-header-cell *matHeaderCellDef> İşlemler
+        </mat-header-cell>
+        <mat-cell *matCellDef="let uyeler">
+          
+  
+          <button mat-icon-button color="primary" matTooltip="Uye Düzenle" (click)="Duzenle(uyeler)">
+            <mat-icon aria-label="label">edit</mat-icon>
+          </button>
+  
+          <button mat-icon-button color="warn" matTooltip="Uye Sil" (click)="Sil(uyeler)">
+            <mat-icon aria-label="label">delete</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+    
+     
+    
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+    <mat-paginator [pageSizeOptions]="[10, 25, 100]" showFirstLastButtons="">
+    </mat-paginator>
+  </div>

@@ -1,0 +1,27 @@
+<mat-card class="example-card">
+  <mat-card-header>
+    <mat-card-title> Kullanıcı Adı: &nbsp;<b>{{uye?.KullaniciAdi}}</b></mat-card-title>
+    <mat-card-subtitle> &nbsp; </mat-card-subtitle>
+    <mat-card-subtitle>Katılma Tarihi: {{uye?.UyeTarih | date: 'dd.MM.yyyy HH:mm:ss'}}</mat-card-subtitle>
+    <mat-card-subtitle *ngIf="uye?.UyeYetki == 1">Statü Durumu: <b>Admin</b></mat-card-subtitle>
+    <mat-card-subtitle *ngIf="uye?.UyeYetki == 0">Statü Durumu: <b>Üye</b></mat-card-subtitle>
+  </mat-card-header>
+  <hr>
+  <mat-card-content>
+    <div class="container">
+      <h1 style="text-align: center;">Sorduğu Sorular</h1>
+      <h2 style="color: red;" *ngIf="sorular?.length == 0">Bu Üyeye Ait Soru Yok.</h2>
+      <div *ngFor="let sorular of sorular">
+       <h1>Soru Başlığı : {{sorular.SoruBaslik}}</h1>
+      <p>
+        <b>Kategori : </b> {{sorular.KategoriAdi}}&nbsp;&nbsp;
+        <b>Tarih : </b> {{sorular.SoruTarih | date: 'dd.MM.yyyy HH:mm:ss'}}&nbsp;&nbsp;
+        <b>Yazan : </b> {{sorular.UyeKadi}}&nbsp;&nbsp;
+        <a href="#" [routerLink]="['/sorular', sorular.SoruId]">Soruyu Gör</a>
+      </p>
+      <hr>
+      </div>
+      </div>
+  </mat-card-content>
+</mat-card>
+

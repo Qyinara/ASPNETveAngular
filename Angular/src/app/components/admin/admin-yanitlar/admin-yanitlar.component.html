@@ -1,0 +1,51 @@
+<div class="container">
+  <h2>Yanıtlar</h2>
+<mat-form-field>
+  <input matInput placeholder="Yanıt Arama" (keyup)="Filtrele($event)">
+</mat-form-field>
+
+
+  <mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+<ng-container matColumnDef="KullaniciAdi">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Yanıtlayan Kullanıcı
+      </mat-header-cell>
+      <mat-cell *matCellDef="let yanitlar"> {{yanitlar.KullaniciAdi}} </mat-cell>
+    </ng-container>
+
+  <ng-container matColumnDef="YanitIcerik">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Yanıt İçeriği
+    </mat-header-cell>
+    <mat-cell *matCellDef="let yanitlar"> {{yanitlar.YanitIcerik}} </mat-cell>
+  </ng-container>
+    
+
+    <ng-container matColumnDef="YanitTarih">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Yanıtlanma Tarihi
+      </mat-header-cell>
+      <mat-cell *matCellDef="let yanitlar"> {{yanitlar.YanitTarih | date: 'dd.MM.yyyy HH:mm:ss'}} </mat-cell>
+    </ng-container>
+  
+
+  
+ 
+
+
+    <ng-container matColumnDef="detay">
+      <mat-header-cell *matHeaderCellDef> İşlemler
+      </mat-header-cell>
+      <mat-cell *matCellDef="let kayit">
+      
+        <button mat-icon-button color="warn" matTooltip="Soru Sil" (click)="Sil(kayit)">
+          <mat-icon aria-label="label">delete</mat-icon>
+        </button>
+      
+      </mat-cell>
+    </ng-container>
+
+  
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons>
+  </mat-paginator>
+</div>

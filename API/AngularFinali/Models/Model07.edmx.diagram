@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ce5262750e8e4c4cb4adab9ca8d096c8" Name="Diagram1">
+        <EntityTypeShape EntityType="DB07Model.Kategoriler" Width="1.5" PointX="3.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB07Model.Sorular" Width="1.5" PointX="5.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB07Model.Uyeler" Width="1.5" PointX="1.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB07Model.Yanitlar" Width="1.5" PointX="8" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="DB07Model.FK_Sorular_ToKategoriler" ManuallyRouted="false" />
+        <AssociationConnector Association="DB07Model.FK_Sorular_ToUyeler" ManuallyRouted="false" />
+        <AssociationConnector Association="DB07Model.FK_Yanitlar_ToSorular" ManuallyRouted="false" />
+        <AssociationConnector Association="DB07Model.FK_Yanitlar_ToUyeler" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,43 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
+    <mat-toolbar class="mat-elevation-z4" style="background-color: rgb(255, 255, 255);color:rgb(128,28,164)">Kategoriler</mat-toolbar>
+    <mat-nav-list>
+      
+      <a mat-list-item [routerLink]="['/kategori',kat.KategoriId]" *ngFor="let kat of kategoriler">{{kat.KategoriAdi}} ({{kat.KatSoruSay}})</a>
+  
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    
+    <mat-toolbar color="primary" class="mat-elevation-z4">
+      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span [routerLink]="['/']">TechnoSoru</span>
+      <span class="spacer"></span>
+  
+      <button mat-button [matMenuTriggerFor]="menu" *ngIf="apiServis.yetkiKontrol(['Admin'])" style="color: yellow;">
+      <mat-icon>admin_panel_settings</mat-icon>
+      Admin Paneli
+    </button>
+    <button mat-button [routerLink]="['/login']" *ngIf="!apiServis.oturumKontrol()">Giriş Yap</button>
+    <button mat-button *ngIf="apiServis.oturumKontrol()" [routerLink]="['/uyesorular', uyeId]"> <mat-icon> account_circle</mat-icon> {{kadi}}</button>
+    <button mat-button *ngIf="apiServis.oturumKontrol()" (click)="oturumKapat()">Çıkış Yap</button>
+    <button mat-button *ngIf="!apiServis.oturumKontrol()" (click)="UyeEkle()" > Kayıt Ol</button>
+ 
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item [routerLink]="['/admin/kategoriler']">Kategoriler</button>
+      <button mat-menu-item [routerLink]="['/admin/sorular']">Sorular</button>
+      <button mat-menu-item [routerLink]="['/admin/yanitlar']">Yanıtlar</button>
+      <button mat-menu-item [routerLink]="['/admin/uyeler']">Üyeler</button>
+    </mat-menu>
+
+    </mat-toolbar>
+    <div class="container">
+      <router-outlet></router-outlet>
+    </div>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>

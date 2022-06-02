@@ -1,0 +1,58 @@
+<div class="container">
+
+  <div *ngIf="apiServis.oturumKontrol()" >
+  <h2>Soru Sor</h2>
+  <button mat-fab matTooltip="Soru Ekle" color="primary" (click)="Ekle()" >
+    <mat-icon aria-label="label">add</mat-icon>
+  </button>
+  <p>&nbsp;</p>
+</div>
+<div *ngIf="!apiServis.oturumKontrol()">
+  <h2>Soru Sormak İçin <a href="" [routerLink]="['/login']"> Oturum Açınız</a></h2>
+  <button mat-fab matTooltip="Soru Ekle"[routerLink]="['/login']"  color="primary">
+    <mat-icon aria-label="label">add</mat-icon>
+  </button>
+  <p>&nbsp;</p>
+</div>
+
+
+<h1>Son Sorulanlar</h1>
+<mat-card  *ngFor="let sorular of sorular">
+  
+<mat-card-subtitle> <b>Soran : </b> <a style="font-size: 20px;" href="#"  [routerLink]="['/uyesorular', sorular.UyeId]">{{sorular.UyeKadi}}</a></mat-card-subtitle>
+
+<h1>Soru Başlığı : {{sorular.SoruBaslik}}</h1>
+<div [innerHtml]="sorular.SoruIcerik | safeHtml"> </div>
+<p>
+<b>Kategori : </b> {{sorular.KategoriAdi}}&nbsp;&nbsp;
+<b>Tarih : </b> {{sorular.SoruTarih | date: 'dd.MM.yyyy HH:mm:ss'}}&nbsp;&nbsp;
+<mat-card-actions align="end">
+  <button mat-button [routerLink]="['/sorular', sorular.SoruId]">Soruyu Gör</button>
+</mat-card-actions>
+<hr>
+
+</mat-card>
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="container">
+  <h1 style="text-align: center;">En Son Sorulan Sorular</h1>
+<div *ngFor="let sorular of sorular">
+ <h1>Soru Başlığı : {{sorular.SoruBaslik}}</h1>
+<p>
+  <b>Kategori : </b> <a href="#" [routerLink]="['/kategori', sorular.KategoriId]">{{sorular.KategoriAdi}}</a>&nbsp;&nbsp;
+  <b>Tarih : </b> {{sorular.SoruTarih | date: 'dd.MM.yyyy HH:mm:ss'}}&nbsp;&nbsp;
+  <b>Yazan : </b> <a href="#"  [routerLink]="['/uyesorular', sorular.UyeId]">{{sorular.UyeKadi}}</a>&nbsp;&nbsp;
+  <a href="#" [routerLink]="['/sorular', sorular.SoruId]">Soruyu Gör</a>
+</p>
+<hr>
+</div>
+</div> -->

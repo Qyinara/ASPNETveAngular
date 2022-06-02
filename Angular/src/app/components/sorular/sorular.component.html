@@ -1,0 +1,29 @@
+
+<div class="container" *ngIf="sorular">
+  <h1>{{sorular.SoruBaslik}}</h1>
+  <b>Kategori : </b> {{sorular.KategoriAdi}}&nbsp;&nbsp;
+  <b>Tarih : </b> {{sorular.SoruTarih | date: 'dd.MM.yyyy HH:mm:ss'}}&nbsp;&nbsp;
+  <b>Soran : </b> {{sorular.UyeKadi}}&nbsp;&nbsp;
+<br><br>
+  <div [innerHtml]="sorular.SoruIcerik | safeHtml"></div>
+<hr>
+  <h1>Yanıtlar</h1>
+<div *ngFor="let yanit of yanitlar">
+  <b>Tarih :{{yanit.YanitTarih | date: 'dd.MM.yyyy HH:mm:ss'}} </b> &nbsp;&nbsp;
+  <b>Yanıtlayan : </b><a href="#"  [routerLink]="['/uyesorular', yanit.UyeId]">{{yanit.KullaniciAdi}}</a> &nbsp;&nbsp;
+  <p>{{yanit.YanitIcerik}}</p>
+  
+  <hr>
+</div>
+
+<h3 *ngIf="!apiServis.oturumKontrol()">Yanıtlayabilmek İçin <a href="" [routerLink]="['/login']"> Oturum Açınız</a></h3>
+  <div *ngIf="apiServis.oturumKontrol()">
+<mat-form-field appearance="outline" style="width: 100%;">
+  <mat-label>Yanıtınız</mat-label>
+  <textarea matInput placeholder="Yanıtınız" #yanitMetni maxlength="50"> </textarea>
+  <mat-hint align="end">{{yanitMetni.value.length}} / 50</mat-hint>
+</mat-form-field>
+<button mat-raised-button color="primary" (click)="YanitEkle(yanitMetni.value)">Yanıtla</button>
+
+  </div>
+</div>
